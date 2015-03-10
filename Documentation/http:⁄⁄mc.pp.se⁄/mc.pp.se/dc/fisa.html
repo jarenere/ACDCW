@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - Flash Internet Settings Adjuster</title>
+
+</head>
+
+<body vlink="#6677cc" alink="red" link="#6699cc" text="white" bgcolor="black">
+<top>
+
+<img alt="" align="right" src="dc_mark.gif">
+
+<p><img alt="Flash Internet Settings Adjuster" valign="top" src="../_internal/graphic_text!0/asw4kq4vlpnfxtobd3366p2z0ge0klc$hxgctfx655nhlv0y7o0z74h3c8yhhww" style="border: none;" height="43" width="461" /></p>
+
+
+The "Flash Internet Settings Adjuster" is a program designed to view
+and alter the ISP configuration parameters saved in the flash rom on
+the Dreamcast motherboard by Dreamcast browsers.  Note that only modem
+based settings are included, Broadband configuration is <b>not</b> handled
+by this program.  The purpose of the program is to allow you to see and
+modify certain settings that are not accessible in some browsers, therefore
+preventing you from using an ISP of your own choice.
+
+This program comes with no warranty.  If the contents of your system
+flash rom becomes corrupted, you will only have yourself to blame.
+Please read all of this page before trying to use the program.
+<br clear="right">
+
+
+
+<p>
+
+<p><img alt="Usage" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$fnd53qlh96rrtspzal0iwawucq7gjyr" style="border: none;" height="35" width="75" /></p>
+
+
+The Flash Internet Settings Adjuster works as a stand-alone program
+which you burn on a CD-R.  Boot up your Dreamcast from this CD, and
+you should get a display showing your current settings, and allowing
+you to modify them as you see fit.  The following sections give
+details on the available settings, and how to control the program.
+For burning the CD-R, the <a href="cdr.html">usual instructions</a> apply.  
+For specific help on using "Nero Burning Rom", see
+<a href="http://nero.julesdcdev.com/">Jules page on that subject</a>.
+</p>
+
+
+
+<p>
+
+<p><img alt="Supported parameters" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$2xhv5t9t0asvx97faagp8661jyhjg01" style="border: none;" height="35" width="277" /></p>
+
+
+The following parameters can be adjusted:
+
+
+<dl>
+
+
+<dt>PPP Login</dt>
+
+
+<dd>Login name for the PPP server</dd>
+
+
+<dt>PPP Password</dt>
+
+
+<dd>Password for the PPP server</dd>
+
+
+<dt>Phone number 1-3</dt>
+
+
+<dd>Alternate phone numbers to the modem pool of your ISP,
+in priority order</dd>
+
+
+<dt>DNS server 1-2</dt>
+
+
+<dd>IP numbers for DNS servers to use, in priority order</dd>
+
+
+<dt>E-mail address</dt>
+
+
+<dd>You E-mail address (for putting on outgoing mails)</dd>
+
+
+<dt>SMTP server</dt>
+
+
+<dd>FQDN or IP number for SMTP server to use (outgoing mails)</dd>
+
+
+<dt>POP3 server</dt>
+
+
+<dd>FQDN or IP number for POP3 server to use (incoming mails)</dd>
+
+
+<dt>POP Login</dt>
+
+
+<dd>Login name for the POP3 server</dd>
+
+
+<dt>POP Password</dt>
+
+
+<dd>Password for the POP3 server</dd>
+
+
+<dt>Proxy sever</dt>
+
+
+<dd>FQDN or IP number for HTTP proxy (leave blank for no proxy)</dd>
+
+
+<dt>Proxy port</dt>
+
+
+<dd>Port number for HTTP proxy (set to 0 for no proxy)</dd>
+
+
+</dl>
+
+</p>
+
+
+
+<p>
+
+<p><img alt="Keyboard editing" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$gh3kpw9mplizhol1oph1545tx487tef" style="border: none;" height="35" width="209" /></p>
+
+
+To move between the fields with the keyboard, press Tab and Shift-Tab.
+You can move around in the field with left and right cursor keys, and
+erase text with Backspace.
+</p>
+
+
+
+<p>
+To quit the program without saving any changes, press the Esc key.
+To save all settings, press F12.  If saving succeeds, the program will
+automatically quit.
+</p>
+
+
+
+
+<p>
+
+<p><img alt="Controller editing" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$e25n9li1vcsj90a6098y67oj9piqidn" style="border: none;" height="35" width="212" /></p>
+
+
+While a keyboard is highly recommended, editing with just a controller
+is also possible.  In this case, use left and right trigger to move
+between the fields.  Use left/right on the D-pad to move inside the fields,
+and A to erase text.  To actually enter text, you have to use up/down
+on the D-pad to increment/decrement the character code for each position
+until the correct character appears.  This procedure is <i>very</i>
+tedious.  A keyboard is <i>definitely</i> recommended.
+</p>
+
+
+
+<p>
+To quit the program without saving any changes, press B.
+To save all settings, press X.  If saving succeeds, the program will
+automatically quit.
+</p>
+
+
+
+<p>
+
+<p><img alt="Saving" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$2weknx3h7x2m0yy2m1o19kvfnxvotr" style="border: none;" height="35" width="83" /></p>
+
+
+When saving, the new data is written to the builtin flash rom on the
+motherboard.  If the write is successful, the new data will replace your
+previous modem settings.  If a save is <i>not</i> successful, you may
+get your old modem settings, or a mix of old and new settings.  Other
+settings in the flash should not be affected.  One reason for a save to
+fail is if there are no free blocks left in the system partition.
+In this case, the system partition needs to be <i>defragmented</i>.
+For safety reasons, this program will not perform the defragmentation
+procedure.  Instead, quit the program and go to the Dreamcast main menu.
+Alter one of the settings in the Settings menu (such as stereo/mono or
+language), and return to the main menu.  The system partition should now be
+defragmented by the settings menu in order to save the new setting.  You can
+now try to run the Internet Settings Adjuster again.
+</p>
+
+
+
+<p>
+
+<p><img alt="Download" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$kgmxo3ugdq705p0bujznp3d10utk9px" style="border: none;" height="35" width="124" /></p>
+
+
+If you have read all of the above, you may
+<a href="files/fisa.tar.gz">download the archive</a>.  Remember that
+using this program is at your own risk.  No responsibility will be taken
+for corrupted flash roms.
+</p>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img border="0" alt="Powered by Roxen" align="right" src="../internal-roxen-power-small-white" height="40" width="40" /></a><a href="index.html">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Tue Feb  6 01:43:09 MET 2001 -->
+<!-- hhmts start -->
+Last modified: Tue Feb  6 02:36:24 MET 2001
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+

@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - Maple Bus to USB Adaptor</title>
+
+</head>
+
+<body vlink="#6677cc" alink="red" link="#6699cc" text="white" bgcolor="black">
+<top>
+
+<img alt="" align="right" src="dc_mark.gif">
+
+<p><img alt="Maple Bus to USB Adaptor" valign="top" src="../_internal/graphic_text!0/asw4kq4vlpnfxtobd3366p2z0ge0klc$iravphrxmesntzy2n52z135kzquva2h" style="border: none;" height="43" width="396" /></p>
+
+
+This page describes an adaptor from Maple Bus to USB (meaning that
+you can connect your Maple Bus devices to an USB host, not the other
+way around) built using only an EZ-USB2 module from Braintechnology,
+and two resistors.  The current software allows Dreamcast controllers,
+keyboards, and mice to be used as normal HID devices.
+<br clear="right">
+
+
+
+<p><img alt="Hardware" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$46csca7n7h09pxwa90fsw1dhxvll4by" style="border: none;" height="35" width="119" /></p>
+
+
+<p>
+To build this adaptor, you need the following:
+
+<ul>
+
+
+<li>One USB High Speed Interface module from <a href="http://www.braintechnology.de/braintechnology/en/">Braintechnology</a></li>
+
+
+<li>Two 10k resistors</li>
+
+
+<li>One Maple Bus connector (female)</li>
+
+
+</ul>
+
+Ok, it doesn't actually have to be a Braintechnology module, as long as
+you have a Cypress EZ-USB FX2 chip with all the stuff around it to make it run,
+but I find them convenient to use.  As for the Maple Bus connector, a good
+way to obtain one is to get a controller extension cable and cut it into
+two.</p>
+
+
+
+<p>At this point someone might wonder why I've used a USB2 chip, when
+a controller hardly needs high speed mode.  Well, that's because the
+FX2 has something that its USB1 cousins does not: GPIF.  Use of the
+GPIF is essential in being able to recive Maple data reliably at full
+speed (see below for details), and therefore it has to be the FX2.</p>
+
+
+
+<p>Connect the parts according to the following schematic, and you're
+done!
+<img src="dchid.gif"></p>
+
+
+
+<p><img alt="Software" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$r06nh5wsihwgkknk8iz49tfkrm0bkd4" style="border: none;" height="35" width="109" /></p>
+
+
+<p>
+Well, the next thing needed is some software to put into the FX2.
+The following software allows you to connect a Dreamcast controller,
+keyboard, or mouse, and use it as a HID device.
+
+<ul>
+
+
+<li><a href="files/dchid.ihx">HID software for Maple Bus to USB Adaptor (binary)</a></li>
+
+
+<li><a href="files/dchid.tar.gz">HID software for Maple Bus to USB Adaptor (source)</a></li>
+
+
+</ul>
+
+I will in the following sections give some details on how the Maple Bus
+communication is implemented in this software.
+</p>
+
+
+
+<p><img alt="Transmission" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$67lvjm6uhshclu1lrwt6ckiu4g0r8oh" style="border: none;" height="35" width="159" /></p>
+
+
+
+<p>Maple Bus transmission is the simple part to implement in a microcontroller.
+Because the transmitting side decides the speed of the bus, it doesn't matter
+that the microcontoller isn't fast enough to transmit at full speed using
+software bit operations.  So we can put the bits out at our leisure, and
+the Maple Bus device will wait for them.  Hence, the transission function
+<tt>maple_write()</tt> simply puts out the bits one by one at a moderate
+rate.  The <tt>CTL0</tt> and <tt>CTL1</tt> pins are used to transmit, because they can be
+configured in open drain mode, which is something we want.  These pins
+are controlled using <tt>GPIFIDLECTL</tt>.</p>
+  
+<p>Worthy of note is the fact that
+<tt>maple_write()</tt> does <i>not</i> return <tt>CTL1</tt> (pin 5) to the high
+state in <tt>GPIFIDLECTL</tt> at the end.  This is because once pin 5 is released at the end of the
+lead-out sequence, the device may start sending its response.  Therefore
+the pin should not be released until we are ready to receive said response.
+Since the GPIF is used to receive the response (see below), this works out
+rather elegantly:  Once the GPIF read operation is triggered by the software,
+the GPIF becomes active, and so <tt>CTL1</tt> is no longer controlled
+by <tt>GPIFIDLECTL</tt> (the GPIF is, after all, not idle anymore) but instead
+by the GPIF state machine, which constantly outputs 1 to both <tt>CTL0</tt>
+and <tt>CTL1</tt>.  So <tt>CTL1</tt> will go high (open) at the very
+same instant as reception is enabled.  Of course, the <tt>maple_read()</tt>
+function also needs to adjust <tt>GPIFIDLECTL</tt> so that <tt>CTL1</tt>
+stays high after the reception has finished.</p>
+
+
+
+<p><img alt="Reception" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$rb42iyi716rnycva9mwzk7fo7wdziww" style="border: none;" height="35" width="121" /></p>
+
+
+
+<p>This is where things get interresting.  During reception of the answer
+from the Maple Bus device, the device sets the bus speed, and can blast
+the bits away at speeds up to 2Mbps.  This means that trying to parse
+the waveform in software by manually polling the input pins isn't going
+to work out.  This is where the GPIF comes in.  The GPIF is a hardware
+state machine, which can poll and act on input control signals every
+clock cycle.  In each state, it either captures data on the data
+pins or doesn't, and then proceeds to the next state depending on the
+inputs on the control pins.  Since the pins on the Maple Bus take turns
+holding data and clock, I have connected them both to the <tt>RDY0</tt>
+and <tt>RDY1</tt> pins, which direct the state machine where to go,
+and to the <tt>PD0</tt> and <tt>PD1</tt> pins, which are (some of) the
+pins which get captured in the capture states.  The following is the
+state diagram I have constructed for decoding Maple Bus with the GPIF:
+<img src="states.gif"><br clear="all">
+
+When the state machine enters state 1 or state 4 (the blue ones), the
+GPIF writes the data on port D to memory.  State 1 is entered when a
+data bit is clocked in during phase 1, and state 4 when a data bit is
+clocked in during phase 2.  State 7, which is reached at the end of
+phase 2, is a special termination state.  When the state machine gets
+there, it checks if there is more space available in the buffer, and
+if so starts a new cycle (at state 0).  If the buffer is full, the GPIF
+halts at state 7.  This prevents the buffer from being overrun by
+receiving too much data.  State 2, which is reached at the end of phase 1,
+checks if pin 1 has returned to high level before pin 5.  This does not
+normally happen at the end of phase 1, which is supposed to end with
+pin 1 low.  So if this has happened, it must mean that the lead-out
+sequence has been detected.  In this case, the machine goes to state 5
+(red) where it issues an interrupt, and stays there.
+The software will notice the interrupt, and stop the GPIF.
+</p>
+
+
+
+<p>After the GPIF has stopped either by reacing state 7 with a full
+buffer or by being halted by the software in response to either the
+interrupt from state 5 or a timeout interrupt, <tt>maple_read()</tt>
+will call the function <tt>bits_to_bytes()</tt> to decode the data stored
+by the GPIF.  Since the GPIF stores the entire contents of port D (which
+is 16 bits wide) in each "blue" state, it means that a single bit of
+payload data needs to be extracted from each group of 16 bits (alternately
+bit 0 and bit 1), and this is what <tt>bits_to_bytes()</tt> does.  It should
+be noted that because of this 16 x size explosion during capture, the
+buffer (which is 1 Kbyte in size) will only be able to hold 61 bytes worth of Maple data.  Packets
+longer than that will be truncated to the first 61 bytes.</p>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img border="0" alt="Powered by Roxen" align="right" src="../internal-roxen-power-small-white" height="40" width="40" /></a><a href="index.html">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Mon Jul  7 18:34:59 CEST 2008 -->
+<!-- hhmts start -->
+Last modified: Mon Jul  7 22:13:08 CEST 2008
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+

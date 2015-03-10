@@ -1,0 +1,708 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - DreamSNES</title>
+
+</head>
+
+<body vlink="#6677cc" alink="red" link="#6699cc" text="white" bgcolor="black">
+<top>
+
+<img alt="" align="right" src="../dc_mark.gif">
+
+<p><img alt="DreamSNES" valign="top" src="../../_internal/graphic_text!0/asw4kq4vlpnfxtobd3366p2z0ge0klc$gfu3crx8ohhg5n32h2k0q43dn18ehgs" style="border: none;" height="43" width="182" /></p>
+
+
+DreamSNES is a Super Nintendo emulator based on Gary Henderson's
+Snes9X.  It runs directly on the Dreamcast hardware without using
+any SEGA or Microsoft libraries.  It has been completely developed
+using free tools.  DreamSNES was created by
+<a href="mailto:marcus@idonex.se">Marcus Comstedt</a>,
+<a href="mailto:peter@bortas.org">Peter Bortas</a>, and
+<a href="mailto:per@hedbor.org">Per Hedbor</a>.
+<br clear="right">
+
+
+
+<p>
+
+<p><img alt="News" valign="top" src="../../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$b43jo7nqvs7lk32ty6kgdziclyhjj1o" style="border: none;" height="35" width="68" /></p>
+
+DreamSNES 0.9.8 released<br>
+
+
+The pumpkin season is upon us, so here is a Halloween release of DreamSNES.
+The SA-1 emulation should now work with the assembler CPU core, and for you
+MegaMan fans, there is now C4 emulation!
+</p>
+
+
+
+<p>
+
+<p><img alt="Older news" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$sjq4empt0unvj8nn1qhbvu3z34u6umj" style="border: none;" height="23" width="93" /></p>
+
+DreamSNES 0.9.7 released<br>
+
+
+Mostly bugfixes this time too (the assembler CPU core should now work
+just as well as the old core).  New features include saved settings,
+and a few new keyboard functions.
+</p>
+
+
+
+<p>
+Please note that a graphical installer is now available for DreamSNES.
+Not only does it relieve you from messing around with the commandline
+(which I hear some people find troublesome :), it will also index your
+ROM collection and create a database on the CD for fast menu operation.
+Read more about it in the <a href="index.html#inst">Installation</a> section below.
+</p>
+
+
+
+<p>
+
+<p><img alt="Features" valign="top" src="../../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$3fqsiotpt9knye2czysoyyfnjeygg1h" style="border: none;" height="35" width="103" /></p>
+
+
+<ul>
+
+  
+<li>SRAM saves to VMS (when the VM starts beeping, there is a save
+in progress)</li>
+
+  
+<li>Interactive game selection menu</li>
+
+  
+<li>Optional TV-mode for giving the right feel when playing on a VGA monitor</li>
+
+  
+<li>Up to four controllers supported, and also mice and lightguns (support for rumble pack planned)</li>
+
+  
+<li>Really nice graphics by Kathy Choi (thanks!) (More excellent images
+by Kathy can be found on her <a href="http://elfwood.lysator.liu.se/loth/h/a/hana/hana.html">Elfwood page</a>.)</li>
+
+  
+<li>Groovy music by <a href="http://jan.warnstam.org/soilofsound/">Jan Warnstam</a> (the X-mas edition instead has a Yuletide hit song by <a href="http://mc.pp.se/dc/dreamsnes/wressle@roxen.com">Daniel Wressle</a>)</li>
+
+
+</ul>
+
+</p>
+
+
+
+<p>
+
+<p><img alt="Screenshots" valign="top" src="../../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$t1yzix1au81ef8bngkmjvjvihxbohgt" style="border: none;" height="35" width="151" /></p>
+
+
+Here are some screenshots taken by Peter with a digital camera.  :-)
+
+<br clear="right">
+
+
+<a href="credits.jpg"><img border="0" src="credits_small.jpg"></a>
+<a href="main_menu.jpg"><img border="0" src="main_menu_small.jpg"></a>
+<a href="rayearth.jpg"><img border="0" src="rayearth_small.jpg"></a>
+<br clear="right">
+
+
+He has more screenshots on <a href="http://peter.bortas.org/dreamsnes/shots.html">this page</a>.
+</p>
+
+
+
+<p>
+
+<p><img alt="Release notes" valign="top" src="../../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$3mzkaa3e0x9zoodnyxg9yzjep5k432m" style="border: none;" height="35" width="169" /></p>
+
+
+
+<dl>
+
+
+<dt>v0.9.8 - 20021031</dt>
+
+
+<dd>Fixes all known bugs of 0.9.7.  Added C4 emulation.
+<br>
+ Changes since 0.9.7:
+
+
+<ul>
+
+
+<li>SA-1 emulation fixed (Super Mario RPG now works (again))</li>
+
+
+<li>C4 emulation implemented (MegaMan X2/X3 now works)</li>
+
+
+<li>Putting a file called "NO_ROMS.HERE" in a directory prevents it from
+  being scanned for roms.</li>
+
+
+<li>Added in game menu that lets you choose among other things to reset
+  the game or jump to the next or previous game on the CD.</li>
+
+
+<li>Fixed sprites in hires mode with transparencies on. Fixes Tokimeki
+  Memorial.</li>
+
+
+<li>Fixed memory map for Super Dante RPG maker.</li>
+
+
+<li>Improved buffer handling in mpeg player.</li>
+
+
+<li>New locales: Charnego and Romanian.</li>
+
+
+</ul>
+
+<br>
+<br>
+</dd>
+
+
+
+<dt>v0.9.7 - 20020421</dt>
+
+
+<dd>Fixes all known bugs of 0.9.6.  Lists ROMS faster.
+<br>
+ Changes since 0.9.6:
+
+
+<ul>
+
+
+<li>Fixed a missed sign extension of an 8-bit value in the assembler
+	  core. This should fix problems with counters running wild and other
+	  more or less peculiar artifacts people have noticed.</li>
+
+
+<li>Speeded up ROMS.LST handling and fixed some bugs in it.</li>
+
+
+<li>Lowered the in-game sample rate a bit to increase over all emulation
+	  speed.</li>
+
+
+<li>Settings are now saved on the VMU.</li>
+
+
+<li>Reenabled "Disable transparencies" option on popular demand.</li>
+
+
+</ul>
+
+<br>
+<br>
+</dd>
+
+
+
+<dt>v0.9.6 - 20020224</dt>
+
+
+<dd>Basically a bugfix only release.  Should fix all known bugs of 0.9.5,
+we hope. 
+<br>
+ Changes since 0.9.5:
+
+
+<ul>
+
+
+<li>Fixed bug in saving.</li>
+
+
+<li>Fixed bug in multi-tap support. (Multiplayer in Bomberman works
+      again.)</li>
+
+
+<li>Fixed interlace problems on PAL.</li>
+
+
+<li>Fixed glitches in stereo sound. Both ingame and in the menu.</li>
+
+
+<li>Support multiple mpeg layer 2 or 3 sound files in the sound
+      directory. Song names and artists will be read from the id3 tag if
+      it exists.</li>
+
+
+<li>Reenabled the "CPU optimizations" mode, which was accidentally
+      disabled in the last release.</li>
+
+
+</ul>
+
+<br>
+<br>
+</dd>
+
+
+
+<dt>v0.9.5 - 20020214</dt>
+
+
+<dd>This time, we actually <i>do</i> have some speed improvements,
+on account of porting the entire CPU emulation core into SH4 assembler.
+No mean feat I can tell you...  It also happens to be another themed
+release, this time inspired by the holiday of love: Valentine.
+<br>
+ Changes since 0.9.4:
+
+
+<ul>
+
+
+<li>Rewrote 65c816 CPU core to SH4 assembler</li>
+
+
+<li>Added light gun (SuperScope) support</li>
+
+
+<li>Fixed a bug that made it impossible to save unless the VMU was in
+	  port A, slot 1.</li>
+
+
+<li>VMU saving have been improved to work on all VMUs available for
+	  testing.</li>
+
+
+<li>Whenever a save is in progress a VMU icon will appear in the top
+	  left corner. If the save fails for some reason a message will be
+	  displayed with the reason for the failure.</li>
+
+
+<li>VMU saves are compressed. This reduces practically any save to two
+	  blocks.</li>
+
+
+<li>Yoshi's Island (and other SuperFX games) no longer crashes DreamSNES</li>
+
+
+<li>Controllers are now automatically configured based on what is
+        connected to the Dreamcast. Check the heads up display in the top
+        right corner when starting a game for the current configuration. The
+        configuration can be dynamically changed while playing by removing or
+        adding peripherals to the Dreamcast ports.</li>
+
+
+<li>A file (ROMS.LST) can optionally be added to the cd to speed up the
+	  rom scan. The game names will then be takes from the file instead of
+	  scanning the rom header.</li>
+
+
+<li>Added Finnish, French, German, Italian, Japanese, Polish and Spanish
+	  translations. Thanks to all locale contributors!</li>
+
+
+</ul>
+
+<br>
+<br>
+</dd>
+
+
+
+<dt>v0.9.4 - 20010312</dt>
+
+
+<dd>Again, not much improvement speedwise.  We just though people
+would start to get really tired of the Christmas song by now.  :-)
+<br>
+  Changes since 0.9.3:
+
+
+<ul>
+
+
+<li>Support for C and Z button (as select and exit to menu)</li>
+
+
+<li>Better keyrepeat handling in the menus</li>
+
+
+<li>Fullscreen mode added (default, but configurable)</li>
+
+
+<li>Translation to Swedish.  And French (sort of).</li>
+
+
+<li>Screen "blanker" in menu</li>
+
+
+<li>New music by Jan Warnstam</li>
+
+
+<li>Keyboard support:  Press ESC for menu, Pause for "blanker"</li>
+
+
+<li>Better support for third party memory cards</li>
+
+
+<li>ROMs can now be placed in a directory "ROMS/" instead of in the root</li>
+
+
+</ul>
+
+<br>
+<br>
+</dd>
+
+
+
+<dt>v0.9.3 (X-mas edition) - 20001222</dt>
+
+
+<dd>This is a special Christmas release to keep you occupied over the
+holidays.  <i>Merry X-mas and a Happy New Year!</i>
+<br>
+  Improvements over 0.9.2:
+
+
+<ul>
+
+
+<li>Converted the menus to a cosy Christmas theme.</li>
+
+
+<li>Added mouse support</li>
+
+
+<li>Added possibility to to interpolate mode7.</li>
+
+
+<li>Speeded things up a bit. Note that it is still slow.</li>
+
+
+<li>Fixed menu interlace problem.</li>
+
+
+<li>Removed one of the soundtracks to reduce download size.</li>
+
+
+</ul>
+
+This is still not 1.0.  Do not expect great speed.
+<br>
+<br>
+
+<b>Known bugs:</b> Does not save to Joytech or Nexus 4M bankswitched VMUs.
+<br>
+<br>
+</dd>
+
+
+
+<dt>v0.9.2 - 20001104</dt>
+
+
+<dd>This is the second public beta. It is
+not significantly faster than 0.9, but have been tweaked to be more
+playable, and has some awesome music included.  The specific improvements
+are (details in the CHANGES file):
+
+<ul>
+
+
+<li>PAL support</li>
+
+
+<li>Verical offset of non-VGA screens fixed.  (i e bottom of screen
+should now be visible.)</li>
+
+
+<li>50/60Hz video option</li>
+
+
+<li>Double buffering</li>
+
+
+<li>Less frame skipping</li>
+
+
+<li>Stereo sound support</li>
+
+
+<li>Up to 1024 ROMs per CD supported.</li>
+
+
+<li>Game can be selected before the ROM list is completely loaded</li>
+
+
+<li>Music added on the menu screens</li>
+
+
+</ul>
+
+It does <i>not</i> run at full speed.  If you thought the previous release
+was unusable due to the low speed (as you should have), then you'll be
+better off waiting for v1.0.<br>
+<br>
+
+<b>Known bugs:</b> Sometimes the interlace gets screwed up.  If this
+happens, switch between the game and the menu until it goes away (usually
+at the first try).<br>
+<br>
+</dd>
+
+
+
+<dt>v0.9 - 20001007</dt>
+
+
+<dd>This is the first public release.  Most stuff works, but
+it's still pretty slow.  Expect around 50% speed in most cases.
+The background music for the menu has been disabled as it didn't
+work properly, sorry.  Don't download this version if you want
+a really playable system, it's more for the curious who don't mind
+wasting a CD-R on playing around with a beta.
+</dd>
+
+
+</dl>
+
+</p>
+
+
+
+<p>
+<a name="inst">
+<p><img alt="Installation" valign="top" src="../../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$12ci2pragmz5jrs29238tct60s3cu35" style="border: none;" height="35" width="130" /></p>
+</a>
+
+To get DreamSNES running on your Dreamcast, you need to burn it on a
+CD-R together with any SNES roms you want to run. There are no game
+roms in the DreamSNES distribution, you have to get them
+elsewhere. Remember that you may only use dumps of SNES roms that you
+actually own in order to be 100% legal.</p>
+
+
+
+<p>There is a graphical tool to create the DreamSNES CD-R for you.
+It allows you to select a DreamSNES version, and any number of ROMS,
+and it will download DreamSNES and create the CD automatically.  Please
+note that you do not even have to download the DreamSNES distribution,
+just download and install the installer program (and the components
+it depends on), and you'll be able to burn the latest DreamSNES at any time.
+</p>
+
+
+
+<p>It is still possible to use the old manual method for creating the
+      DreamSNES disc, the description of that procedure remains
+      further down, under the heading <a href="index.html#classic">"Classical
+	method"</a>.</p>
+
+
+
+<p><b>New:</b> Peter Bortas has kindly compiled an easy installation kit for
+W*ndows users, containing all the necessary components.  If you're running
+W*nodws, you are strongly urged to just download <a href="http://www.lysator.liu.se/dreamsnes/dsinstaller.zip">this package</a>, and
+follow the instructions inside.  Once you get the dreamsnesinstall script
+running, skip to the paragraph starting with "If the startup goes well"
+below.</p>
+
+
+
+<p>To use the graphical installer, you need:
+
+<dl>
+
+
+<dt>GTK+</dt>
+
+
+<dd>This is the GUI library used to create the graphical interface.
+	If you don't already have it, you can get it from the
+	<a href="http://www.gtk.org/">GTK+ homepage</a>.</dd>
+
+
+<dt>Pike</dt>
+
+
+<dd>This is the script language in which the installer script is
+	written.  If you don't have it, you can get it from the
+	<a href="http://pike.roxen.com/">Pike homepage</a>.</dd>
+
+
+<dt>cdrtools</dt>
+
+
+<dd>To actually write the CD, the script calls the tools cdrecord and
+	mkisofs from the <a href="http://www.fokus.gmd.de/research/cc/glone/employees/joerg.schilling/private/cdrecord.html">cdrtools</a> package.
+	Place them in your path, or in the same directory as the
+	installer script.</dd>
+
+
+<dt>dreamsnesinstall.pike</dt>
+
+
+<dd>Well, <a href="dreamsnesinstall.pike">the script itself</a>.  :-)
+(If your browser is stupid, shift-click.)</dd>
+
+
+</dl>
+
+</p>
+
+
+
+<p>
+To start the installer, just launch the script using the Pike
+      interpreter (on UNIX, it should just be a matter of setting the
+      executable-bit on the script; on W*ndows you probably have to
+      associate the extension ".pike" with the pike interpreter or
+      something).
+
+If the startup goes well, you should be presented with a window
+      containing a selector for the device ID of your burner.  You may
+      also select to create an "image file" for Nero Burning ROM.
+      Only use that as a last resort though, it's <b>slow</b>.
+
+The selection "direct burn" means to write the data to the disc on the
+      fly as it is constructed, rather than to write it to hard disc
+      first and then burn it.  Normally it should be safe to do
+      this, but if you are worried just leave it unchecked and make
+      sure you have enough space on your hard drive instead.
+</p>
+
+
+
+<p>
+After you have selected your burner, pick the DreamSNES version you
+      want to burn from the box below, and proceed to the ROM
+      selection page.  Here you can pick the ROM files you want to
+      include on the cd.  No ROM files are distributed with DreamSNES,
+      you have to provide them yourself.  Note that you do not have to
+      add ROM files one at a time.  Just add a directory with ROM
+      files, and all its contents will be added.
+</p>
+
+
+
+<p>
+When you have enough ROMs (don't add more than will fit on a CD,
+      unfortunately there is currently no check to automatically
+      prevent you from doing that), go to the Action page and hit the
+      Start button, and the disc creation will start.  (First, it will
+      download the DreamSNES distribution for you.)  If anything goes
+      wrong, please consult the messages in the popups and in the
+      "Messages" box on the Action page.
+</p>
+
+
+
+<p><a name="classic">
+<p><img alt="Classical method" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$hio0jpcczhqc0g230dl6698qldhreja" style="border: none;" height="23" width="137" /></p>
+</a>
+
+This is the old recipe for creating a DreamSNES disc.  If you haven't
+already done so, you should definitely try out the graphical installer
+before resorting to the method outlined here.  If you don't like the
+installer, you can still use this method, but it is your own
+responsibility to know what you are doing.  :-)</p>
+
+
+
+<p>Extract the contents
+of the DreamSNES distribution (dreamsnes-0.9.8/cd/) into an empty
+directory, and place any roms in the same directory (up to 1024 ROM files).
+Optionally, you can create a directory "<tt>roms</tt>" and place the ROM files in
+that.  You must <i>not</i> use <tt>zip</tt>ped roms, you
+have to unzip them before burning. You can also burn the roms on a
+separate CD and swap CDs when the emulator has booted.  Such a separate
+rom CD can be a normal mode 1 data CD, it does not have to be CD/XA.
+If you make a separate rom CD, you may want to put the "sound" directory from
+the DreamSNES distribution on the CD as well, so that you still get music in
+the menu.
+</p>
+
+
+
+<p>
+When you have the necessary files in a directory, just make that into
+a self booting disc as described on the <a href="../cdr.html">CD-R page</a>. Just
+give <tt>mkisofs</tt> the name of the directory and it will add everything in
+the directory to the iso. Then insert the supplied <tt>IP.BIN</tt> into the
+resulting ISO.
+</p>
+
+
+
+<p>
+
+<p><img alt="Download" valign="top" src="../../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$kgmxo3ugdq705p0bujznp3d10utk9px" style="border: none;" height="35" width="124" /></p>
+
+
+Before you download, please make sure that you have read and understood the
+Installation chapter above.  You should also be aware that the current
+release is a beta version which may not perform optimally speedwise with
+all games.  If this is not a problem, you may go ahead and download
+one of the archives below.</p>
+
+
+
+<p>Please note that you <b>do not</b> have to download this distribution
+    if you are going to use the installation script, it will handle
+    the download for you.
+
+
+<ul>
+
+ 
+<li><a href="http://www.lysator.liu.se/~marcus/dreamsnes/dreamsnes-0.9.8.tar.gz">DreamSNES 0.9.8 tar.gz archive</a></li>
+
+ 
+<li><a href="http://www.lysator.liu.se/~marcus/dreamsnes/dreamsnes-0.9.8.zip">DreamSNES 0.9.8 zip archive</a></li>
+
+
+</ul>
+
+
+Please note that you <b>do not</b> have to download this distribution
+    if you are going to use the installation script, it will handle
+    the download for you.
+</p>
+
+
+
+<p>
+
+<p><img alt="Forum" valign="top" src="../../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$psvqkrhwta8y7t6vgdvn2tdhx5agq3j" style="border: none;" height="35" width="78" /></p>
+
+
+A forum is <a href="http://www.dcemulation.org/phpBB/viewforum.php?f=30">here</a>.
+
+</p>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img border="0" alt="Powered by Roxen" align="right" src="../../internal-roxen-power-small-white" height="40" width="40" /></a><a href="../index.html">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Sat Oct  7 22:29:41 MEST 2000 -->
+<!-- hhmts start -->
+Last modified: Sun May 25 00:43:27 CEST 2008
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+
+

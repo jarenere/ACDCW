@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - Bootable CD-Rs</title>
+
+</head>
+
+<body vlink="#6677cc" alink="red" link="#6699cc" text="white" bgcolor="black">
+<top>
+
+<img alt="" align="right" src="dc_mark.gif">
+
+<p><img alt="Bootable CD-Rs" valign="top" src="../_internal/graphic_text!0/asw4kq4vlpnfxtobd3366p2z0ge0klc$e5qp0gg9rs5g9wcavyvnxi83g46ogca" style="border: none;" height="43" width="231" /></p>
+
+
+The Dreamcast firmware allows booting from a normal CD-R (CD-RW won't work
+though), provided that it has the right structure.  This page gives detailed
+instructions on how to create a bootable CD-R using <a href="http://www.fokus.gmd.de/research/cc/glone/employees/joerg.schilling/private/cdrecord.html">cdrecord</a> (people running Wintendo can allegedly find binaries <a href="ftp://ftp.fokus.gmd.de/pub/unix/cdrecord/alpha/win32/">here</a>).
+The example commandlines assume a CD-R drive with SCSI id 6, you should of
+course adjust them according to your configuration.  They also tend to assume you are
+running some kind of UNIX.  Please don't mail me asking how to create empty files etc under DOS.
+I don't know.  Ask someone who uses DOS.
+<br clear="right">
+
+
+
+<p>
+
+<p><img alt="Overall structure" valign="top" src="../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$szfakh8yhhcgqwd942wmjhazr11nhgt" style="border: none;" height="23" width="135" /></p>
+
+For a CD-R to be bootable on the Dreamcast, it should have two sessions.
+The first should contain only a normal audio track.  It doesn't matter
+what kind of audio you actually put there, silence is fine.  (It has been
+suggested that a data track could also be used for the first session.
+I haven't tried this myself though.)  The second
+session should contain a CD/XA data track (mode 2 form 1).  This data track
+should contain a regular ISO9660 file system, and in the first 16 sectors a
+correct bootstrap (IP.BIN).  How to create a correct IP.BIN is described
+<a href="ip.bin.html">elsewhere</a>.
+</p>
+
+
+
+<p>
+
+<p><img alt="Burning the audio track" valign="top" src="../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$i67wrxxcaar4znt7g9x36o47yi0e7i9" style="border: none;" height="23" width="191" /></p>
+
+First you have to burn the audio session.  You can use any audio you like,
+but the simplest option is just to create 4 seconds (the minimum track length)
+of silence, like so:
+<pre>
+  dd if=/dev/zero bs=2352 count=300 of=audio.raw
+</pre>
+
+Next, insert a blank CD and burn the audio track.  Make sure to leave the
+disc open for further sessions, the <tt>-multi</tt> option to <tt>cdrecord</tt>
+takes care of that.
+<pre>
+  cdrecord dev=0,6,0 -multi -audio audio.raw
+</pre>
+</p>
+
+
+
+<p>
+
+<p><img alt="Creating the ISO image" valign="top" src="../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$2r246enf5igju8nk4zzerckfj3y5jqf" style="border: none;" height="23" width="188" /></p>
+
+Now that the audio track has been burned, it is possible to create the
+ISO filesystem image.  The reason that it can't be done earlier is that
+on a multisession disc the sector numbers in the image have to be offset
+with a number depending on the sessions burned before.  To find out this
+number, run
+<pre>
+  cdrecord dev=0,6,0 -msinfo
+</pre>
+with the disc still in the drive.  You should get two comma separated
+numbers (for example <tt>0,11700</tt>).  Remember these numbers.
+Now create the ISO image with mkisofs.  If you want to create an image
+containing only the file <tt>1ST_READ.BIN</tt> for example, then run
+<pre>
+  mkisofs -l -C <i>x,y</i> -o tmp.iso 1ST_READ.BIN
+</pre>
+where <i>x,y</i> is the pair of numbers you got with <tt>-msinfo</tt> earlier.
+Make sure you get them correctly, or the image won't work.
+</p>
+
+
+
+<p>
+
+<p><img alt="Adding the bootstrap" valign="top" src="../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$5iio1kvo01d2anddiwvn5gqabws1uwf" style="border: none;" height="23" width="173" /></p>
+
+The first 16 sectors of an ISO9660 filesystem are blank, to leave room
+for bootstraps.  This is where IP.BIN (32768 bytes) goes.  Replace the
+first 16 sectors of your image with the appropriate IP.BIN bootstrap:
+<pre>
+  ( cat IP.BIN ; dd if=tmp.iso bs=2048 skip=16 ) &gt; data.raw
+</pre>
+<!-- Nope, that didn't work.  Stupid mkisofs doesn't allow -G with -C.
+Alternately, the IP.BIN can be added directly when running mkisofs:
+<pre>
+  mkisofs -l -C <i>x,y</i> -G IP.BIN -o data.raw 1ST_READ.BIN
+</pre>
+-->
+</p>
+
+
+
+<p>
+
+<p><img alt="Burning the data track" valign="top" src="../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$4p85jvqoy9kqpda84wbv621rxc8wld7" style="border: none;" height="23" width="180" /></p>
+
+Finally, you're ready to burn the
+second session, completing the disc.  This track should be burned as
+CD/XA with form 1 sectors (2048 bytes per sector).  Use the
+<tt>-xa1</tt> (<b>Note:</b> in recent versions of cdrecord, this
+option has been renamed to <tt>-xa</tt>, and <tt>-xa1</tt> now expects
+2056 bytes data per sector.  What you need is XA mode 2 form 1, 2048
+bytes per sector.  If neither <tt>-xa</tt> nor <tt>-xa1</tt> works,
+you might want to try <tt>-xa2</tt> too, the interpretation of these
+flags seems to have varied a lot over the versions...) option to
+<tt>cdrecord</tt>:
+<pre>
+  cdrecord dev=0,6,0 -multi -xa1 data.raw
+</pre>
+When <tt>cdrecord</tt> completes, the disc is ready.  Eject it and try it
+out in your Dreamcast.
+</p>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img border="0" alt="Powered by Roxen" align="right" src="../internal-roxen-power-small-white" height="40" width="40" /></a><a href="index.html">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Tue Jun 27 00:43:00 MEST 2000 -->
+<!-- hhmts start -->
+Last modified: Sun Nov 21 12:16:07 CET 2004
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+

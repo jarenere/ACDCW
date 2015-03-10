@@ -1,0 +1,170 @@
+<html>
+<head>
+<title>GD-Rom Workshop and GD-Mastering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#000000" vlink="#551a8b" alink="#ff0000" link="#0000ee" text="#FF9900">
+<div align="center"> 
+  <p><b><font size="+3">GD-Workshop and<br>
+    GD-Mastering</font></B> </p>
+  <p>Dylan Bromley<br>
+    Sega of America<br>
+    (Retyped into one big document by ProtoCat)</p>
+  <p align="left">&nbsp;</p>
+  <p align="left"><b><font size="+2">Using GD-Workshop: A Walkthrough</font></B></p>
+  <p align="left"><u><b>Emulation Drive:</B></u></p>
+</div>
+<ul>
+  <li> 
+    <div align="left">4 gig SCSI Hard Drive</div>
+  </li>
+  <li> 
+    <div align="left">1 possible 2: 2 gig FAT16 partitions</div>
+  </li>
+  <li> 
+    <div align="left">Can be reformatted to one 4 gig FAT32 or NTFS drive</div>
+  </li>
+</ul>
+<p><u><b>Physical GD-ROM:</B></u></p>
+<ul>
+  <li>120 Minutes</li>
+  <li>1 Gig of data</li>
+</ul>
+<p><u><b>Definition of Data Areas:</B></u></p>
+<ul>
+  <li>Low Density Area: 4 minutes long and holds ~35MB of data</li>
+  <li>High Density Area: 112 minutes long and holds ~1GB of data</li>
+</ul>
+<p align="center"><img src="diagram1.gif" width="367" height="329"></p>
+<p><u><b>Track Types:</B></u></p>
+<ul>
+  <li>CDDA: Contains raw audio files.Each audio file must be on its own track</li>
+  <li>Mode1: These tracks contain game data information and the game executable</li>
+</ul>
+<p><u><b>Definition of Sessions:</B></u></p>
+<ul>
+  <li><b>Session 1: Low Density Area of GD </B> 
+    <ul>
+      <li><u>Both tracks must contain 4 sec of data: </u> 
+        <ul>
+          <li>Track 1 - Mode1: GD buffer</li>
+          <li>Track 2- CDDA: Stores audio file to be played when inserted into 
+            a CD player</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><b>Session 2: High Density Area of GD </B> 
+    <ul>
+      <li><u>Need for two Mode1 tracks: </u> 
+        <ul>
+          <li>Track 3: Mode1 buffer area 
+            <ul>
+              <li><i>Needs 4 secs of data</i></li>
+              <li><i>Track Tab: Pad Track Check Box </i></li>
+            </ul>
+          </li>
+          <li>Track 4: Mode1 Game Data 
+            <ul>
+              <li><i>Outer most track on physical GD</i></li>
+              <li><i>Contains 1ST_READ.BIN File</i></li>
+              <li><i>Files can be reordered for file read speed optimizations 
+                via the listview option</i></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<p><u><b>Adding of Digital Audio Tracks:</B></u></p>
+<ul>
+  <li>Insertion of CDDA tracks</li>
+  <li>Reorder of last Mode1 track </li>
+</ul>
+<p align="center"><img src="diagram2.gif" width="352" height="333"></p>
+<p><b><font size="+2">GD-Mastering</font></B></p>
+<p><b><u>Compilation of a Bootable File:</u></B></p>
+<ul>
+  <li>All example files contain a BIN option</li>
+  <li>In the EXE directory the BIN file is created</li>
+  <li>BIN file must be placed on the last Mode1 track</li>
+</ul>
+<p><b><u>IP.BIN: The First File Loaded:</u></B></p>
+<ul>
+  <li>IP.BIN and IP0000.BIN are required to be present in the project</li>
+  <li>IP0000.BIN = IP.BIN x8</li>
+  <li>Creation of IP.BIN and IP0000.BIN is included in the release in the Shinobi 
+    samples directory</li>
+  <li>This file contains several different fields which need to be customized 
+    for each title: 
+    <blockquote> 
+      <table width="75%" border="0">
+        <tr> 
+          <td width="33%"> 
+            <ul>
+              <li>Hardware ID</li>
+              <li>Maker ID</li>
+              <li>Device Information</li>
+              <li>Area Symbols</li>
+              <li>Peripherals</li>
+              <li>Product Number</li>
+            </ul>
+          </td>
+          <td width="67%"> 
+            <ul>
+              <li>Version</li>
+              <li>Release Date</li>
+              <li>1st Read File Name</li>
+              <li>Software Maker Info</li>
+              <li>90 - d0: Title String info</li>
+              <li>Game Title</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </Blockquote>
+  </li>
+</ul>
+<p><b><u>Placement of IP.BIN files within the project:</u></B></p>
+<ul>
+  <li>Disc tab within GD-Workshop</li>
+  <li>System Area File (single): IP0000.BIN</li>
+  <li>System Area File (high): IP.BIN</li>
+</ul>
+<p><b><u>Testing Your Bootable Project:</u></B></p>
+<ul>
+  <li>Close the drawer</li>
+  <li>Reset the Dev Station</li>
+</ul>
+<p><b><u>Burning the Image:</u></B><u></u></p>
+<ul>
+  <li><u>Add the GD-Writer </u> 
+    <ul>
+      <li><i>Configuration\SCSI Bus</i></li>
+      <li><i>Select the GD-Writer and Add as GD-Writer</i></li>
+    </ul>
+  </li>
+  <li><u>Testing Burning </u> 
+    <ul>
+      <li><i>Emulator\Test Write</i></li>
+      <li><i>Goes through the process of burning without turning on the laser</i></li>
+    </ul>
+  </li>
+  <li><u>Final Burning </u> 
+    <ul>
+      <li><i>Emulator\Write</i></li>
+      <li><i>~1 hour to burn</i></li>
+    </ul>
+  </li>
+  <li><u>Testing the Burn </u> 
+    <ul>
+      <li><i>Switch GD Emulator to GD-ROM mode</i></li>
+      <li><i>This mode allows booting from the GD drive</i></li>
+      <li><i>Insert GD and reset Dev Station</i></li>
+    </ul>
+  </li>
+</ul>
+</BODY>
+</html>

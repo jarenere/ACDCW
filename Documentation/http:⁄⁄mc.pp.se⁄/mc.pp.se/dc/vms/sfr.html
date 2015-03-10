@@ -1,0 +1,2158 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - VMS SFRs</title>
+
+</head>
+
+<body vlink="#6677cc" alink="red" link="#6699cc" text="white" bgcolor="black">
+<top>
+
+<img alt="" align="right" src="../dc_mark.gif">
+
+<p><img alt="VMS SFRs" valign="top" src="../../_internal/graphic_text!0/asw4kq4vlpnfxtobd3366p2z0ge0klc$bxqt7rswgbhis4g2g0nliwp9e7xwwcn" style="border: none;" height="43" width="154" /></p>
+
+
+
+<p>The following should be a complete list of the Special Function Registers
+in the VMS.  More detailed descriptions of the registers follow below the
+list.</p>
+
+<br clear="right">
+
+
+
+<p>
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">Address</th><th bgcolor="#404000">Name</th><th bgcolor="#404000">Description</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">100</td>
+
+<td bgcolor="#404000">ACC</td>
+
+<td bgcolor="#404000">Accumulator</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">101</td>
+
+<td bgcolor="#404000">PSW</td>
+
+<td bgcolor="#404000">Processor Status Word</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">102</td>
+
+<td bgcolor="#404000">B</td>
+
+<td bgcolor="#404000">B Register (general purpose)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">103</td>
+
+<td bgcolor="#404000">C</td>
+
+<td bgcolor="#404000">C Register (general purpose)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">104</td>
+
+<td bgcolor="#404000">TRL</td>
+
+<td bgcolor="#404000">Table Reference (Low byte)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">105</td>
+
+<td bgcolor="#404000">TRH</td>
+
+<td bgcolor="#404000">Table Reference (High byte)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">106</td>
+
+<td bgcolor="#404000">SP</td>
+
+<td bgcolor="#404000">Stack Pointer</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">107</td>
+
+<td bgcolor="#404000">PCON</td>
+
+<td bgcolor="#404000">Power Control register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">108</td>
+
+<td bgcolor="#404000">IE</td>
+
+<td bgcolor="#404000">Interrupt Enable control</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">109</td>
+
+<td bgcolor="#404000">IP</td>
+
+<td bgcolor="#404000">Interrupt Priority Ranking control</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">10A-10C</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">10D</td>
+
+<td bgcolor="#404000">EXT</td>
+
+<td bgcolor="#404000">External Memory control</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">10E</td>
+
+<td bgcolor="#404000">OCR</td>
+
+<td bgcolor="#404000">Oscillation Control Register (32kHz/600kHz/6MHz)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">10F</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">110</td>
+
+<td bgcolor="#404000">T0CON</td>
+
+<td bgcolor="#404000">Timer/Counter 0 control</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">111</td>
+
+<td bgcolor="#404000">T0PRR</td>
+
+<td bgcolor="#404000">Timer 0 Prescaler Data Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">112</td>
+
+<td bgcolor="#404000">T0L</td>
+
+<td bgcolor="#404000">Timer 0 Low</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">113</td>
+
+<td bgcolor="#404000">T0LR</td>
+
+<td bgcolor="#404000">Timer 0 Low Reload Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">114</td>
+
+<td bgcolor="#404000">T0H</td>
+
+<td bgcolor="#404000">Timer 0 High</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">115</td>
+
+<td bgcolor="#404000">T0HR</td>
+
+<td bgcolor="#404000">Timer 0 High Reload Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">116-117</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">118</td>
+
+<td bgcolor="#404000">T1CNT</td>
+
+<td bgcolor="#404000">Timer 1 control</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">119</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11A</td>
+
+<td bgcolor="#404000">T1LC</td>
+
+<td bgcolor="#404000">Timer 1 Low Compare Data Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11B</td>
+
+<td bgcolor="#404000">T1L</td>
+
+<td bgcolor="#404000">Timer 1 Low (Read only)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11B</td>
+
+<td bgcolor="#404000">T1LR</td>
+
+<td bgcolor="#404000">Timer 1 Low Reload Register (Write only)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11C</td>
+
+<td bgcolor="#404000">T1HC</td>
+
+<td bgcolor="#404000">Timer 1 High Compare Data Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11D</td>
+
+<td bgcolor="#404000">T1H</td>
+
+<td bgcolor="#404000">Timer 1 High (Read only)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11D</td>
+
+<td bgcolor="#404000">T1HR</td>
+
+<td bgcolor="#404000">Timer 1 High Reload Register (Write only)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11E-11F</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">120</td>
+
+<td bgcolor="#404000">MCR</td>
+
+<td bgcolor="#404000">Mode Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">121</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">122</td>
+
+<td bgcolor="#404000">STAD</td>
+
+<td bgcolor="#404000">Start Addresss Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">123</td>
+
+<td bgcolor="#404000">CNR</td>
+
+<td bgcolor="#404000">Character Number Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">124</td>
+
+<td bgcolor="#404000">TDR</td>
+
+<td bgcolor="#404000">Time Division Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">125</td>
+
+<td bgcolor="#404000">XBNK</td>
+
+<td bgcolor="#404000">Bank Address Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">126</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">127</td>
+
+<td bgcolor="#404000">VCCR</td>
+
+<td bgcolor="#404000">LCD Contrast Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">128-12F</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">130</td>
+
+<td bgcolor="#404000">SCON0</td>
+
+<td bgcolor="#404000">SIO0 Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">131</td>
+
+<td bgcolor="#404000">SBUF0</td>
+
+<td bgcolor="#404000">SIO0 Buffer</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">132</td>
+
+<td bgcolor="#404000">SBR</td>
+
+<td bgcolor="#404000">SIO Baud Rate Generator Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">133</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">134</td>
+
+<td bgcolor="#404000">SCON1</td>
+
+<td bgcolor="#404000">SIO1 Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">135</td>
+
+<td bgcolor="#404000">SBUF1</td>
+
+<td bgcolor="#404000">SIO1 Buffer</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">136-143</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">144</td>
+
+<td bgcolor="#404000">P1</td>
+
+<td bgcolor="#404000">Port 1 Latch</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">145</td>
+
+<td bgcolor="#404000">P1DDR</td>
+
+<td bgcolor="#404000">Port 1 Data Direction Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">146</td>
+
+<td bgcolor="#404000">P1FCR</td>
+
+<td bgcolor="#404000">Port 1 Function Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">147-14B</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">14C</td>
+
+<td bgcolor="#404000">P3</td>
+
+<td bgcolor="#404000">Port 3 Latch</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">14D</td>
+
+<td bgcolor="#404000">P3DDR</td>
+
+<td bgcolor="#404000">Port 3 Data Direction Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">14E</td>
+
+<td bgcolor="#404000">P3INT</td>
+
+<td bgcolor="#404000">Port 3 Interrupt Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">14F-15B</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">15C</td>
+
+<td bgcolor="#404000">P7</td>
+
+<td bgcolor="#404000">Port 7 Latch</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">15D</td>
+
+<td bgcolor="#404000">I01CR</td>
+
+<td bgcolor="#404000">External Interrupt 0, 1 control</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">15E</td>
+
+<td bgcolor="#404000">I23CR</td>
+
+<td bgcolor="#404000">External Interrupt 2, 3 control</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">15F</td>
+
+<td bgcolor="#404000">ISL</td>
+
+<td bgcolor="#404000">Input Signal Selection Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">160-162</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">163</td>
+
+<td bgcolor="#404000">VSEL</td>
+
+<td bgcolor="#404000">VMS Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">164</td>
+
+<td bgcolor="#404000">VRMAD1</td>
+
+<td bgcolor="#404000">Work RAM Access Address 1</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">165</td>
+
+<td bgcolor="#404000">VRMAD2</td>
+
+<td bgcolor="#404000">Work RAM Access Address 2</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">166</td>
+
+<td bgcolor="#404000">VTRBF</td>
+
+<td bgcolor="#404000">Send/Receive Buffer</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">167</td>
+
+<td bgcolor="#404000">VLREG</td>
+
+<td bgcolor="#404000">Length registration</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">168-17E</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">17F</td>
+
+<td bgcolor="#404000">BTCR</td>
+
+<td bgcolor="#404000">Base Timer Control Register</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">180-1FB</td>
+
+<td bgcolor="#404000">XRAM</td>
+
+<td bgcolor="#404000">LCD frame buffer</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">1FC-1FF</td>
+
+<td></td>
+
+<td bgcolor="#404000">Not Used</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+</p>
+
+
+
+<p>
+
+
+<p><img alt="PSW - Processor Status Word (101)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$d4ihropj4d6fxxrz6pz8dlf9upcpp55" style="border: none;" height="23" width="287" /></p>
+
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr align="center">
+
+<td bgcolor="#404000">CY</td>
+
+<td bgcolor="#404000">AC</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">IRBK1</td>
+
+<td bgcolor="#404000">IRBK0</td>
+
+<td bgcolor="#404000">OV</td>
+
+<td bgcolor="#404000">RAMBK0</td>
+
+<td bgcolor="#404000">P</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>CY - Carry flag</dt>
+
+
+<dd>The Carry flag is set when a carry from the most significant bit
+occurs in an addition, or when a borrow to the most signigicant bit occurs
+in a subtraction.  If an addition or subtraction is performed without a
+carry or borrow occuring, the Carry flag is cleared.</dd>
+
+
+<dt>AC - Auxiliary Carry flag</dt>
+
+
+<dd>The Auxiliary Carry flag works like the regular Carry flag, but
+registers carry from, or borrow to, the third bit.</dd>
+
+
+<dt>IRBK - Indirect address register bank</dt>
+
+
+<dd>The IRBK bits can be used to set the base address for indirect
+addressing.  See <a href="cpu.html#addressing">addressing modes</a> for more
+information.</dd>
+
+
+<dt>OV - Overflow flag</dt>
+
+
+<dd>The Overflow flag is set when overflow occurs in a signed addition
+or subtraction, or when the result of a multiplication exceeds 256.
+The overflow flag is also set when a division by zero is performed.</dd>
+
+
+<dt>RAMBK0 - RAM bank</dt>
+
+
+<dd>This bit selects one of two banks for the 256 general purpose RAM bytes at
+the low half of RAM space (0 through FF).  Bank 0 contains system variables
+and the CPU stack.  Bank 1 is free for use by game software, and automatically
+selected by the VMS firmware before entering game mode.</dd>
+
+
+<dt>P - ACC parity</dt>
+
+
+<dd>This bit is set when the number of set bits in ACC is odd.  Read only.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="TRL / TRH - Table Reference register (104 / 105)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$7eumuayxszsmi95qkrit8bohyella3n" style="border: none;" height="23" width="383" /></p>
+
+
+The TRL and TRH registers together form a 16-bit (TRL being the low 8 bits
+and TRH being the high 8 bits) address in ROM space which is used by the
+LDC instruction.  LDC will add the ACC register to this 16-bit address,
+and fetch the byte at the resulting ROM address back to ACC.  The TRL and
+TRH registers can also be used as general purpose registers.
+
+</p>
+
+
+<p>
+
+<a name="SP">
+<p><img alt="SP - Stack Pointer (106)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$muum0wrtu7910hadvtwoc1snf5c2vq6" style="border: none;" height="23" width="190" /></p>
+</a>
+
+The Stack Pointer points to the topmost element on the stack.  The
+initial value is $7F, and the stack grows upward from $80 to $FF.
+Note that the stack is always stored in RAM bank 0, regardless of the
+RAMBK0 setting in PSW.
+
+
+</p>
+
+
+<p>
+
+<a name="PCON">
+<p><img alt="PCON - Power Control register (107)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$l36kkltyv49vgg84li1w0ikj20ru148" style="border: none;" height="23" width="293" /></p>
+</a>
+
+This register can be used to suspend the CPU to reduce power consumption.  The HOLD and
+HALT bits will automatically be cleared when execution is resumed.
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">HOLD</td>
+
+<td bgcolor="#404000">HALT</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>HOLD - Stop CPU and timers</dt>
+
+
+<dd>Setting this bit to 1 will put the VMS into deep suspension.  The CPU and all timers and clocks will stop.  Only an external interrupt or reset can cause operation to resume.</dd>
+
+
+<dt>HALT - Suspend program execution</dt>
+
+
+<dd>Setting this bit to 1 will cause the CPU to stop executing instructions.  All timers and peripherals will keep operating normally while the CPU is stopped, and any interrupt will wake the CPU up.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="IE - Interrupt Enable control (108)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$qorz5wa9qtknbw63r7ukpthdmhgyy2r" style="border: none;" height="23" width="270" /></p>
+
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">IE7</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">IE1</td>
+
+<td bgcolor="#404000">IE0</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>IE7 - Master interrupt enable</dt>
+
+
+<dd>When this bit is set to zero, all interrupts will be blocked except nonmaskable ones. (Only the external interrupts INT0 and INT1 can be set to nonmaskable.)</dd>
+
+
+<dt>IE1 - INT1 priority level</dt>
+
+
+<dd>When this bit is set to one, the priority of external interrupt INT1 is lowered from nonmaskable to low.</dd>
+
+
+<dt>IE0 - INT0/INT1 priority level</dt>
+
+
+<dd>When this bit is set to one, the priority of both external interrupts INT0 and INT1 are lowered from nonmaskable to low.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="OCR - Oscillation Control Register (10E)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$6ul0dwtb7or9arzme5yj5xxsdji1obw" style="border: none;" height="23" width="320" /></p>
+
+
+The Oscillation Control Register controls the clock frequency of the
+CPU.  Higher frequencies mean increased battery consumption.  Subclock
+mode should be used under normal circumstances.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">OCR7</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">OCR5</td>
+
+<td bgcolor="#404000">OCR4</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">OCR1</td>
+
+<td bgcolor="#404000">OCR0</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>OCR7 - Clock divisor</dt>
+
+
+<dd>Setting this bit to zero divides the clock frequency by 12.
+Setting it to 1 (normal setting) divides the clock frequency by 6.</dd>
+
+
+<dt>OCR5 - Subclock mode enable</dt>
+
+
+<dd>Setting this bit to one enables subclock mode (32kHz).  Subclock mode is
+significantly slower than normal mode, but is also power conserving
+and should be used normally to preserve batteries.  Setting the bit to zero enables RC clock mode (600kHz).</dd>
+
+
+<dt>OCR4 - Main clock mode enable</dt>
+
+
+<dd>Setting this bit to one enables the main clock (6MHz).  This bit should only be set when subclock mode is disabled, and <b>only</b> when docked in the controller.</dd>
+
+
+<dt>OCR1 - RC Clock control</dt>
+
+
+<dd>Setting this bit to one stops the RC oscillator.  This will preserve power, but can
+naturally only be done in subclock mode.</dd>
+
+
+<dt>OCR0 - Main Clock control</dt>
+
+
+<dd>Setting this bit to one stops the main clock.  This bit should always be set when the VMS is not docked.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+<a name="T1CNT">
+<p><img alt="T1CNT - Timer 1 control (118)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$7f05mnirgtcfin0bkxxbvrrl2uw3t19" style="border: none;" height="23" width="241" /></p>
+</a>
+
+This register controls the Timer 1 pair of 8-bit timers.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">T1HRUN</td>
+
+<td bgcolor="#404000">T1LRUN</td>
+
+<td bgcolor="#404000">T1LONG</td>
+
+<td bgcolor="#404000">ELDT1C</td>
+
+<td bgcolor="#404000">T1HOVF</td>
+
+<td bgcolor="#404000">T1HIE</td>
+
+<td bgcolor="#404000">T1LOVF</td>
+
+<td bgcolor="#404000">T1LIE</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>T1HRUN - Timer 1 High running</dt>
+
+
+<dd>Setting this bit to 1 starts the T1H timer.  Setting it to 0 stops the timer.</dd>
+
+
+<dt>T1LRUN - Timer 1 Low running</dt>
+
+
+<dd>Setting this bit to 1 starts the T1L timer.  Setting it to 0 stops the timer.</dd>
+
+
+<dt>T1LONG - 16-bit timer enable</dt>
+
+
+<dd>Setting this bit to 1 combines T1H and T1L into one 16-bit timer.  Setting it to 0 makes T1H and T1L two separate 8-bit timers.</dd>
+
+
+<dt>ELDT1C - Timer 1 Compare Data Load Enable</dt>
+
+
+<dd>When this bit is set to 0, writes to T1LC and T1HC will not take effect until this bit is set to 1 again.  This can be used to set a 16-bit compare value atomically.  (When the timers are not running, this bit is ignored.)</dd>
+
+
+<dt>T1HOVF - Timer 1 High Overflow</dt>
+
+
+<dd>This bit is set to 1 whenever T1H overflows.</dd>
+
+
+<dt>T1HIE - Timer 1 High Interrupt Enable</dt>
+
+
+<dd>Setting this bit to 1 enables interrupts (through vector $2B) when T1H overflows.</dd>
+
+
+<dt>T1LOVF - Timer 1 Low Overflow</dt>
+
+
+<dd>This bit is set to 1 whenever T1L overflows.</dd>
+
+
+<dt>T1LIE - Timer 1 Low Interrupt Enable</dt>
+
+
+<dd>Setting this bit to 1 enables interrupts (through vector $2B) when T1L overflows.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="T1LC - Timer 1 Low Compare Data Register (11A)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$m9g8l3bv9urlnd0xvgi6qqphw7az1bz" style="border: none;" height="23" width="400" /></p>
+
+
+The T1L timer has a pulse output signal that outputs a 0 when the current
+timer count is lower than the contents of this register, and a 1 when the
+current timer count is higher than the contents of this register.  The pulse
+output signal is connected to the VMS beeper, which makes it possible to
+use this feature to play a square sound wave.
+
+</p>
+
+
+<p>
+
+
+<p><img alt="T1L / T1LR - Timer 1 Low (Reload) Register (11B)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$libjw9o9gprguxaytsiwx3yc6t33uhr" style="border: none;" height="23" width="394" /></p>
+
+
+The T1L and T1LR registers occupy the same address in the SFR area.  When
+the address is read, you get the value of T1L.  When it is written, the
+data is stored into T1LR.  T1L is the current Timer 1 Low count, and is
+automatically incremented 32768/6 times per second when the timer is running.
+When it reaches 256, an overflow is detected (optionally generating an
+interrupt, see <a href="sfr.html#T1CNT">T1CNT</a>), and the counter is reloaded
+from the T1LR register.  The period of the timer is thus
+(256 - T1LR)/(32768 / 6) seconds.
+
+</p>
+
+
+<p>
+
+
+<p><img alt="MCR - Mode Control Register (120)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$96x6cfhoyb6fwc501d6fncj4x33wh9t" style="border: none;" height="23" width="283" /></p>
+
+
+This register controls the operation mode of the LCD.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">?</td>
+
+<td bgcolor="#404000">?</td>
+
+<td bgcolor="#404000">?</td>
+
+<td bgcolor="#404000">MCR4</td>
+
+<td bgcolor="#404000">MCR3</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">MCR0</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>MCR4 - Refresh rate</dt>
+
+
+<dd>Setting this bit to 1 gives a display refresh rate of 166Hz.  Setting it to 0
+gives a rate of 83Hz.</dd>
+
+
+<dt>MCR3 - Refresh control</dt>
+
+
+<dd>Setting this bit to 0 stops refreshing the LCD.</dd>
+
+
+<dt>MCR0 - Graphics mode</dt>
+
+
+<dd>Setting this bit to 1 selects graphics mode.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="VCCR - LCD Contrast Control Register (127)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$138skzzh2wgitak6csajlkia1vwgacg" style="border: none;" height="23" width="351" /></p>
+
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">VCCR7</td>
+
+<td bgcolor="#404000">?</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>VCCR7 - LCD display enable</dt>
+
+
+<dd>Set this bit to 1 to enable LCD display.  Always make sure to enable LCD refresh before setting this bit.  Also, always clear this bit before disabling LCD refresh.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="P1 - Port 1 Latch (144)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$dm8sxa6vrc3pdycwjjkcearxz74sy2d" style="border: none;" height="23" width="177" /></p>
+
+
+Port 1 is connected to the external connector on the VMS unit.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">pin 12</td>
+
+<td bgcolor="#404000">pin 10</td>
+
+<td bgcolor="#404000">pin 11</td>
+
+<td bgcolor="#404000">pin 3</td>
+
+<td bgcolor="#404000">pin 4</td>
+
+<td bgcolor="#404000">pin 5</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="P3 - Port 3 Latch (14C)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$rz8uhvwn5umrnhgwutb8xryxw2p5cbn" style="border: none;" height="23" width="178" /></p>
+
+
+Port 3 is connected to the keys on the VMS unit. A 0 means key pressed,
+a 1 means key not pressed.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">SLEEP</td>
+
+<td bgcolor="#404000">MODE</td>
+
+<td bgcolor="#404000">B</td>
+
+<td bgcolor="#404000">A</td>
+
+<td bgcolor="#404000"><img alt="->" src="right.gif"></td>
+
+<td bgcolor="#404000"><img alt="<-" src="left.gif"></td>
+
+<td bgcolor="#404000"><img alt="v" src="down.gif"></td>
+
+<td bgcolor="#404000"><img alt="^" src="up.gif"></td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="P3INT - Port 3 Interrupt Control Register (14E)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$bkky9asfe6043qrh10p4ga9ecxhfp11" style="border: none;" height="23" width="371" /></p>
+
+
+Interrupts can be generated when the keys on the VMS unit are pressed.
+They are controlled with this register.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">P32INT</td>
+
+<td bgcolor="#404000">P31INT</td>
+
+<td bgcolor="#404000">P30INT</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>P32INT - Port 3 interrupt control</dt>
+
+
+<dd>Set this bit to 1 to allow P3 input to break HOLD mode (see <a href="sfr.html#PCON">PCON</a>)</dd>
+
+
+<dt>P31INT - Port 3 interrupt flag</dt>
+
+
+<dd>This bit is set to 1 when there is input on P3.  It must be cleared manually by the interrupt service handler.</dd>
+
+
+<dt>P30INT - Port 3 interrupt enable</dt>
+
+
+<dd>Set this bit to 1 to enable interrupts to occur when P31INT is set.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="P7 - Port 7 Latch (15C)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$30umj42ub49866sdd2avi7sep97fj3z" style="border: none;" height="23" width="178" /></p>
+
+
+This is an input-only port.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">P73</td>
+
+<td bgcolor="#404000">P72</td>
+
+<td bgcolor="#404000">P71</td>
+
+<td bgcolor="#404000">P70</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>P73 - External connector pin 6</dt>
+
+
+<dd>This bit reflects the state of pin 6 on the external connector.</dd>
+
+
+<dt>P72 - External connector pin 13</dt>
+
+
+<dd>This bit reflects the state of pin 13 on the external connector.</dd>
+
+
+<dt>P71 - Battery voltage</dt>
+
+
+<dd>This bit turns to a zero when battery power starts running low.  It is monitored by the system time update interrupt, unless disabled with system variable 06E.</dd>
+
+
+<dt>P70 - External voltage</dt>
+
+
+<dd>This bit turns to a one when there is external 5V voltage available.  This happens when the VMS is inserted into a controller plugged into a Dreamcast with the power on.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+<a name="VSEL">
+<p><img alt="VSEL - VMS Control Register (163)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$52ik02rcaz1t3adbesj2t0conaskpk1" style="border: none;" height="23" width="280" /></p>
+</a>
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">INCE</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">?</td>
+
+<td bgcolor="#404000">?</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<dl>
+
+
+<dt>INCE - VRMAD Auto Increment</dt>
+
+
+<dd>If this bit is set, the VRMAD1/VRMAD2 register is automatically incremented
+after a load or store to VTRBF.</dd>
+
+
+</dl>
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="VRMAD - Work RAM Access Address (164,165)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$ot4htdavq73pt0ln2x8bf3jlmtsx1t0" style="border: none;" height="23" width="383" /></p>
+
+
+This 9 bit register holds the address of the Work RAM location that can be
+accessed through VTRBF.  VRMAD1 ($164) holds the 8 least significant bits,
+VRMAD2 ($165) holds the most significant bit.
+
+</p>
+
+
+<p>
+
+
+<p><img alt="VTRBF - Send/Receive Buffer (166)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$l1iioqilrt4eo28dxm74n8gdxfvdoy6" style="border: none;" height="23" width="281" /></p>
+
+
+This register provides access to the 256 byte Work RAM area.  Reading
+from this register will read a byte from the Work RAM, and writing to
+this register will write a byte to the Work RAM.  The Work RAM address
+accessed is determined by the contents of the VRMAD1 register.  The
+address can optionally be auto-incremented, see <a href="sfr.html#VSEL">VSEL</a>.
+
+
+</p>
+
+
+<p>
+
+
+<p><img alt="XRAM - LCD frame buffer (180 - 1FB)" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$c2gan8ltze3hwx70maa6jxt8ulko0xe" style="border: none;" height="23" width="299" /></p>
+
+
+The LCD frame buffer is divided into three banks, selected using the
+XBNK register.  The upper half of the dot matrix display is contained
+in bank 0, and the lower half in bank 1.  The four icons at the bottom
+of the display is controlled with bank 2.
+
+</p>
+
+
+<p>The organization of each dot matrix bank is as follows:  Each 48 pixel
+line is stored as six bytes, the first one being the eight leftmost pixels
+and so on.  Within each byte, the most signigicant bit is leftmost.
+The data for each pair of two lines is stored consecutively, but then
+there is a brief skip of four in the address space before the next two lines.
+The organization of bank 0 is shown below.  For bank 1, just add 16 to the
+line numbers.
+
+</p>
+
+
+<p>
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th></th><th bgcolor="#404000">0-7</th><th bgcolor="#404000">8-15</th><th bgcolor="#404000">16-23</th><th bgcolor="#404000">24-31</th><th bgcolor="#404000">32-39</th><th bgcolor="#404000">40-47</th>
+</tr>
+
+<tr>
+<th bgcolor="#404000">0</th>
+<td bgcolor="#404000">180</td>
+
+<td bgcolor="#404000">181</td>
+
+<td bgcolor="#404000">182</td>
+
+<td bgcolor="#404000">183</td>
+
+<td bgcolor="#404000">184</td>
+
+<td bgcolor="#404000">185</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">1</th>
+<td bgcolor="#404000">186</td>
+
+<td bgcolor="#404000">187</td>
+
+<td bgcolor="#404000">188</td>
+
+<td bgcolor="#404000">189</td>
+
+<td bgcolor="#404000">18A</td>
+
+<td bgcolor="#404000">18B</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">2</th>
+<td bgcolor="#404000">190</td>
+
+<td bgcolor="#404000">191</td>
+
+<td bgcolor="#404000">192</td>
+
+<td bgcolor="#404000">193</td>
+
+<td bgcolor="#404000">194</td>
+
+<td bgcolor="#404000">195</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">3</th>
+<td bgcolor="#404000">196</td>
+
+<td bgcolor="#404000">197</td>
+
+<td bgcolor="#404000">198</td>
+
+<td bgcolor="#404000">199</td>
+
+<td bgcolor="#404000">19A</td>
+
+<td bgcolor="#404000">19B</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">4</th>
+<td bgcolor="#404000">1A0</td>
+
+<td bgcolor="#404000">1A1</td>
+
+<td bgcolor="#404000">1A2</td>
+
+<td bgcolor="#404000">1A3</td>
+
+<td bgcolor="#404000">1A4</td>
+
+<td bgcolor="#404000">1A5</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">5</th>
+<td bgcolor="#404000">1A6</td>
+
+<td bgcolor="#404000">1A7</td>
+
+<td bgcolor="#404000">1A8</td>
+
+<td bgcolor="#404000">1A9</td>
+
+<td bgcolor="#404000">1AA</td>
+
+<td bgcolor="#404000">1AB</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">6</th>
+<td bgcolor="#404000">1B0</td>
+
+<td bgcolor="#404000">1B1</td>
+
+<td bgcolor="#404000">1B2</td>
+
+<td bgcolor="#404000">1B3</td>
+
+<td bgcolor="#404000">1B4</td>
+
+<td bgcolor="#404000">1B5</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">7</th>
+<td bgcolor="#404000">1B6</td>
+
+<td bgcolor="#404000">1B7</td>
+
+<td bgcolor="#404000">1B8</td>
+
+<td bgcolor="#404000">1B9</td>
+
+<td bgcolor="#404000">1BA</td>
+
+<td bgcolor="#404000">1BB</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">8</th>
+<td bgcolor="#404000">1C0</td>
+
+<td bgcolor="#404000">1C1</td>
+
+<td bgcolor="#404000">1C2</td>
+
+<td bgcolor="#404000">1C3</td>
+
+<td bgcolor="#404000">1C4</td>
+
+<td bgcolor="#404000">1C5</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">9</th>
+<td bgcolor="#404000">1C6</td>
+
+<td bgcolor="#404000">1C7</td>
+
+<td bgcolor="#404000">1C8</td>
+
+<td bgcolor="#404000">1C9</td>
+
+<td bgcolor="#404000">1CA</td>
+
+<td bgcolor="#404000">1CB</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">10</th>
+<td bgcolor="#404000">1D0</td>
+
+<td bgcolor="#404000">1D1</td>
+
+<td bgcolor="#404000">1D2</td>
+
+<td bgcolor="#404000">1D3</td>
+
+<td bgcolor="#404000">1D4</td>
+
+<td bgcolor="#404000">1D5</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">11</th>
+<td bgcolor="#404000">1D6</td>
+
+<td bgcolor="#404000">1D7</td>
+
+<td bgcolor="#404000">1D8</td>
+
+<td bgcolor="#404000">1D9</td>
+
+<td bgcolor="#404000">1DA</td>
+
+<td bgcolor="#404000">1DB</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">12</th>
+<td bgcolor="#404000">1E0</td>
+
+<td bgcolor="#404000">1E1</td>
+
+<td bgcolor="#404000">1E2</td>
+
+<td bgcolor="#404000">1E3</td>
+
+<td bgcolor="#404000">1E4</td>
+
+<td bgcolor="#404000">1E5</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">13</th>
+<td bgcolor="#404000">1E6</td>
+
+<td bgcolor="#404000">1E7</td>
+
+<td bgcolor="#404000">1E8</td>
+
+<td bgcolor="#404000">1E9</td>
+
+<td bgcolor="#404000">1EA</td>
+
+<td bgcolor="#404000">1EB</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">14</th>
+<td bgcolor="#404000">1F0</td>
+
+<td bgcolor="#404000">1F1</td>
+
+<td bgcolor="#404000">1F2</td>
+
+<td bgcolor="#404000">1F3</td>
+
+<td bgcolor="#404000">1F4</td>
+
+<td bgcolor="#404000">1F5</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">15</th>
+<td bgcolor="#404000">1F6</td>
+
+<td bgcolor="#404000">1F7</td>
+
+<td bgcolor="#404000">1F8</td>
+
+<td bgcolor="#404000">1F9</td>
+
+<td bgcolor="#404000">1FA</td>
+
+<td bgcolor="#404000">1FB</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+</p>
+
+
+<p>Organization of bank 2:
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th></th><th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+<th bgcolor="#404000">181</th>
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">file icon</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">182</th>
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">game icon</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">183</th>
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">clock icon</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+<th bgcolor="#404000">184</th>
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">-</td>
+
+<td bgcolor="#404000">flash access icon</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+</p>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img border="0" alt="Powered by Roxen" align="right" src="../../internal-roxen-power-small-white" height="40" width="40" /></a><a href="../index.html">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Sat Nov 13 17:04:58 MET 1999 -->
+<!-- hhmts start -->
+Last modified: Mon Jun 12 14:54:57 MEST 2000
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+

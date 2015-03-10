@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - IP0000.BIN</title>
+
+</head>
+
+<body vlink="#6677cc" alink="red" link="#6699cc" text="white" bgcolor="black">
+<top>
+
+<img alt="" align="right" src="dc_mark.gif">
+
+<p><img alt="IP0000.BIN" valign="top" src="../_internal/graphic_text!0/asw4kq4vlpnfxtobd3366p2z0ge0klc$8hlbv8h21zwvp2rhds3alxnte0pv9zb" style="border: none;" height="43" width="157" /></p>
+
+
+The <tt>IP0000.BIN</tt> file is present on every Dreamcast disc, and
+contains information about the software on the disc.  The structure
+described below is repeated in the 16 first sectors of the first
+Mode-1 track on the disc (the area reserved for boot code by ISO9660),
+so it is readable in a normal CD-ROM player.  For the Dreamcast to
+consider a disc bootable, this structure must also be duplicated in
+the high-density region, together with some standard bootstrap code
+and an additional region enforcement layer.
+<br clear="right">
+
+
+
+<p>
+All the fields in the <tt>IP0000.BIN</tt> are plain ASCII, padded with
+spaces to their full length.
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">Offset</th><th bgcolor="#404000">Contents</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">000-00F</td>
+
+<td bgcolor="#404000">Hardware ID (always <tt>"SEGA SEGAKATANA "</tt>)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">010-01F</td>
+
+<td bgcolor="#404000">Maker ID (always <tt>"SEGA ENTERPRISES"</tt>)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">020-02F</td>
+
+<td bgcolor="#404000">Device Information (see <a href="ip0000.bin.html#devinfo">below</a>)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">030-037</td>
+
+<td bgcolor="#404000">Area Symbols (see <a href="ip0000.bin.html#areasyms">below</a>)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">038-03F</td>
+
+<td bgcolor="#404000">Peripherals (see <a href="ip0000.bin.html#periph">below</a>)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">040-049</td>
+
+<td bgcolor="#404000">Product number (<tt>"HDR-nnnn"</tt> etc.)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">04A-04F</td>
+
+<td bgcolor="#404000">Product version</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">050-05F</td>
+
+<td bgcolor="#404000">Release date (YYYYMMDD)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">060-06F</td>
+
+<td bgcolor="#404000">Boot filename (usually <tt>"1ST_READ.BIN"</tt>)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">070-07F</td>
+
+<td bgcolor="#404000">Name of the company that produced the disc</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">080-0FF</td>
+
+<td bgcolor="#404000">Name of the software</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+</p>
+
+
+<a name="devinfo">
+<p><img alt="Device Information" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$mgfu111qzyc6u8oksucw63m1nrq63ge" style="border: none;" height="35" width="231" /></p>
+</a>
+
+
+<p>The Device Information field begins with a four digit hexadecimal
+number, which is a CRC on the Product number and
+Product version fields (16 bytes).  Then comes the
+string <tt>" GD-ROM"</tt>, and finally an indication of how many
+discs this software uses, and which of these discs that this is.  This
+is indicated by two positive numbers separated with a slash.  So if
+this is the second disc of three, the Device Information string might
+be <tt>"8B40 GD-ROM2/3  "</tt>.</p>
+
+
+
+<p>
+The CRC calculation algorithm is as follows (C code): 
+
+<pre>
+int calcCRC(const unsigned char *buf, int size)
+{
+  int i, c, n = 0xffff;
+  for (i = 0; i &lt; size; i++)
+  {
+    n ^= (buf[i]&lt;&lt;8);
+    for (c = 0; c &lt; 8; c++)
+      if (n &amp; 0x8000)
+	n = (n &lt;&lt; 1) ^ 4129;
+      else
+	n = (n &lt;&lt; 1);
+  }
+  return n &amp; 0xffff;
+}
+</pre>
+
+(This is exactly the same CRC algorithm as for the VMS file headers,
+ except that the initial remainder is <tt>FFFF</tt> instead of <tt>0</tt>.
+</p>
+
+
+<a name="areasyms">
+<p><img alt="Area Symbols" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$q9oe75ec5bp71gzgjlsaqtslbe9n62q" style="border: none;" height="35" width="173" /></p>
+</a>
+
+
+<p>The Area Symbols string consists of eight characters, which are either
+space or a specific letter.  Each of these represent a geographical
+region in which the disc is designed to work.  So far, only the first
+three are assigned.  These are Japan (and the rest of East Asia), USA
++ Canada, and Europe, respectively.  If the character for a particular
+region is a space, the disc will not be playable in that region.  If
+it contains the correct region character, it will be.  The region
+characters for the first three regions are <tt>J</tt>, <tt>U</tt>, and
+<tt>E</tt>, respectively.  So a disc only playable in Europe would
+have an Area Symbols string of <tt>"  E     "</tt>.</p>
+
+
+
+<a name="periph">
+<p><img alt="Peripherals" valign="top" src="../_internal/graphic_text!0/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$ryl7pbkjytok19u6tw43okkzl1lf6n3" style="border: none;" height="35" width="135" /></p>
+</a>
+
+
+<p>The Device Information field is a 28 bit long bitfield represented by
+a 7 digit hexadecimal number.  The meaning of the individual bits in
+each digit is given below:
+
+<pre>
+&lt;A&gt;&lt;-------B------&gt; &lt;C-&gt;
+0000 0000 0000 0000 0000 0000 0000
+^^^^ ^^^^ ^^^^ ^^^^ ^^^^    ^    ^
+|||| |||| |||| |||| ||||    |    |
+|||| |||| |||| |||| ||||    |    +----- Uses Windows CE
+|||| |||| |||| |||| ||||    |
+|||| |||| |||| |||| ||||    +-----  VGA box support
+|||| |||| |||| |||| ||||
+|||| |||| |||| |||| |||+----- Other expansions
+|||| |||| |||| |||| ||+----- Puru Puru pack
+|||| |||| |||| |||| |+----- Mike device
+|||| |||| |||| |||| +----- Memory card
+|||| |||| |||| |||+------ Start + A + B + Directions
+|||| |||| |||| ||+------ C button
+|||| |||| |||| |+------ D button
+|||| |||| |||| +------ X button
+|||| |||| |||+------- Y button
+|||| |||| ||+------- Z button
+|||| |||| |+------- Expanded direction buttons
+|||| |||| +------- Analog R trigger
+|||| |||+-------- Analog L trigger
+|||| ||+-------- Analog horizontal controller
+|||| |+-------- Analog vertical controller
+|||| +-------- Expanded analog horizontal
+|||+--------- Expanded analog vertical
+||+--------- Gun
+|+--------- Keyboard
++--------- Mouse
+</pre>
+
+The group of bits indicated by <tt>B</tt> above indicate the discs
+<i>minimum</i> controller requirements.  So if the "Z button" bit is
+set, the software can not be used with a controller that doesn't have
+a Z button.  The <tt>A</tt> group indicates which optional peripherals
+the disc supports.  The <tt>C</tt> group indicates which kinds of
+expansion units that the disc supports.  The "VGA box support" bit
+indicates that the disc can be run in VGA mode.  The WinCE bit speaks
+for itself...
+</p>
+
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img border="0" alt="Powered by Roxen" align="right" src="../internal-roxen-power-small-white" height="40" width="40" /></a><a href="index.html">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Tue Jan 18 19:00:02 MET 2000 -->
+<!-- hhmts start -->
+Last modified: Mon Oct 16 22:24:25 MEST 2000
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+
+

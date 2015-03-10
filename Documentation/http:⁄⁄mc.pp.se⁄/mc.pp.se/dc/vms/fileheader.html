@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - VMS File Header</title>
+
+</head>
+
+<body vlink="#6677cc" alink="red" link="#6699cc" text="white" bgcolor="black">
+<top>
+
+<img alt="" align="right" src="../dc_mark.gif">
+
+<p><img alt="VMS File Header" valign="top" src="../../_internal/graphic_text!0/asw4kq4vlpnfxtobd3366p2z0ge0klc$plfwzlxixo3520ohp629k594lxr8bfy" style="border: none;" height="43" width="245" /></p>
+
+
+All VMS files should contain a standard header which is used by the file
+managers in the VMS and in the DC boot ROM to display information about
+the file.  (<a href="icondata.html">ICONDATA</a> files use a somewhat
+simplified headers since they are not shown in the DC boot ROM file manager.)
+For data files, the header is stored at the very beginning of the file.
+For game files, it begins in the <i>second</i> block of the file (offset $200).
+This fact should be reflected by the header offset field in the VMS
+directory, which should contain 1 for game files, and 0 for data files.
+<br clear="right">
+
+
+
+<p>This is the contents of the header:
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">Offset</th><th bgcolor="#404000">Size (bytes)</th><th bgcolor="#404000">Datatype</th><th bgcolor="#404000">Contents</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$00</td>
+
+<td bgcolor="#404000">16</td>
+
+<td bgcolor="#404000">Text</td>
+
+<td bgcolor="#404000">Description of file (shown in VMS file menu)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$10</td>
+
+<td bgcolor="#404000">32</td>
+
+<td bgcolor="#404000">Text</td>
+
+<td bgcolor="#404000">Description of file (shown in DC boot ROM file manager)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$30</td>
+
+<td bgcolor="#404000">16</td>
+
+<td bgcolor="#404000">String</td>
+
+<td bgcolor="#404000">Identifier of application that created the file</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$40</td>
+
+<td bgcolor="#404000">2</td>
+
+<td bgcolor="#404000">Integer</td>
+
+<td bgcolor="#404000">Number of icons (&gt;1 for animated icons)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$42</td>
+
+<td bgcolor="#404000">2</td>
+
+<td bgcolor="#404000">Integer</td>
+
+<td bgcolor="#404000">Icon animation speed</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$44</td>
+
+<td bgcolor="#404000">2</td>
+
+<td bgcolor="#404000">Integer</td>
+
+<td bgcolor="#404000">Graphic eyecatch type (0 = none)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$46</td>
+
+<td bgcolor="#404000">2</td>
+
+<td bgcolor="#404000">Integer</td>
+
+<td bgcolor="#404000">CRC (Ignored for game files.)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$48</td>
+
+<td bgcolor="#404000">4</td>
+
+<td bgcolor="#404000">Integer</td>
+
+<td bgcolor="#404000">Number of bytes of actual file data following header, icon(s) and graphic eyecatch.  (Ignored for game files.)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$4C</td>
+
+<td bgcolor="#404000">20</td>
+
+<td></td>
+
+<td bgcolor="#404000">Reserved (fill with zeros)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$60</td>
+
+<td bgcolor="#404000">32</td>
+
+<td bgcolor="#404000">Integers</td>
+
+<td bgcolor="#404000">Icon palette (16 16-bit integers)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$80</td>
+
+<td bgcolor="#404000">512*n</td>
+
+<td bgcolor="#404000">Nybbles</td>
+
+<td bgcolor="#404000">Icon bitmaps</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">...</td>
+
+<td bgcolor="#404000">depends on type</td>
+
+<td bgcolor="#404000">...</td>
+
+<td bgcolor="#404000">Graphic eyecatch palette and bitmap</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+Text fields are padded with space ($20).  String fileds are padded with
+NUL ($00).  Integer fields are little endian.
+
+
+<p><img alt="CRC calculation" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$11aopy6roir4siexg0h9bo8xfs6ee94" style="border: none;" height="23" width="126" /></p>
+
+
+The CRC should be computed on the entire file, including header and data
+payload, but excluding any padding in the final block.  When calcukating
+the CRC, set the CRC field itself to 0 to avoid miscalculating the CRC for
+the header.  The CRC calculation algorithm is as follows (C code):
+
+<pre>
+int calcCRC(const unsigned char *buf, int size)
+{
+  int i, c, n = 0;
+  for (i = 0; i &lt; size; i++)
+  {
+    n ^= (buf[i]&lt;&lt;8);
+    for (c = 0; c &lt; 8; c++)
+      if (n &amp; 0x8000)
+	n = (n &lt;&lt; 1) ^ 4129;
+      else
+	n = (n &lt;&lt; 1);
+  }
+  return n &amp; 0xffff;
+}
+</pre>
+
+
+
+<p><img alt="Icon palette" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$dlguzdt78cie49wpc1xqlgj34x2tolc" style="border: none;" height="23" width="95" /></p>
+
+
+The palette consists of 16 16-bit little endian integers, one for each colour
+in the palette.  Each integer consists of four four-bit fields:
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">15</th><th bgcolor="#404000">14</th><th bgcolor="#404000">13</th><th bgcolor="#404000">12</th><th bgcolor="#404000">11</th><th bgcolor="#404000">10</th><th bgcolor="#404000">9</th><th bgcolor="#404000">8</th><th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td colspan="4" bgcolor="#404000">Alpha</td>
+
+<td colspan="4" bgcolor="#404000">Red</td>
+
+<td colspan="4" bgcolor="#404000">Green</td>
+
+<td colspan="4" bgcolor="#404000">Blue</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+Alpha 15 is fully opaque, alpha 0 is fully transparent.
+
+
+<p><img alt="Icon bitmaps" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$o3ydf52ahr06qgl3tw60z5iy3zbi207" style="border: none;" height="23" width="105" /></p>
+
+
+The header should contain at least one icon bitmap for the file.  If an
+animated icon is desired, up to three bitmaps can be used (set the field at
+offset $40 accordingly).  The bitmaps are stored directly after each other,
+starting at offset $80.
+
+The bitmaps contain one nybble per pixel.  Each byte thus
+represents two horizontally adjacent pixels, the high nybble being the
+left one and the low nybble being the right one.  Each complete bitmap
+contains 1024 (32 * 32) nybbles, or 512 bytes.
+
+
+<p><img alt="Graphic eyecatch" valign="top" src="../../_internal/graphic_text!0/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$c2jheuu31si1yo3l9ox29gmy1uarse" style="border: none;" height="23" width="141" /></p>
+
+
+The header can optionally contain a 72×56 pixel image shown as a graphic
+eyecatch for the file in the DC boot ROM file manager.  The graphic data
+for the eyecatch is stored immediately after the last icon bitmap.  There
+are four possible visual modes, selected with the field at offset $44:
+
+
+<table border="0" cellpadding="1" cellspacing="0" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table border="0" cellpadding="3" cellspacing="2">
+
+<tr>
+<th bgcolor="#404000">Mode</th><th bgcolor="#404000">Graphic data size (bytes)</th><th bgcolor="#404000">Data format</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">0</td>
+
+<td bgcolor="#404000">0</td>
+
+<td bgcolor="#404000">None</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">1</td>
+
+<td bgcolor="#404000">8064</td>
+
+<td bgcolor="#404000">16-bit true colour, see Icon palette for pixel format.</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">2</td>
+
+<td bgcolor="#404000">4544 (512 bytes palette, 4032 bytes bitmap)</td>
+
+<td bgcolor="#404000">256 colour palette based.  Begins with a palette in the same format as the Icon palette, but with 256 entries.  Then the bitmap has one byte per pixel, giving the index into the palette.</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">3</td>
+
+<td bgcolor="#404000">2048 (32 bytes palette, 2016 bytes bitmap)</td>
+
+<td bgcolor="#404000">16 colour palette based.  Format is just like the Icon palette and bitmap, except for the width and height of the bitmap of course.</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+</p>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img border="0" alt="Powered by Roxen" align="right" src="../../internal-roxen-power-small-white" height="40" width="40" /></a><a href="../index.html">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Sat Feb  5 01:09:41 MET 2000 -->
+<!-- hhmts start -->
+Last modified: Mon Mar 27 17:18:10 MEST 2000
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+
