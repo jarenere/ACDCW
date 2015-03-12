@@ -6,7 +6,8 @@ Only add to the documentation of [controller](http://mc.pp.se/dc/controller.html
 * Pin 3 serial data
 high is +3V and not 5v
 
-The bandwidth for each signal is just 1MHz,
+The bandwidth for each signal is just 1MHz. 
+
 
 ##Sigrok
 [Sigrok](http://sigrok.org/) is a Open-Source signal analysis software suite that supports various device types.
@@ -36,6 +37,12 @@ The following devices were found:
 demo - Demo device with 12 channels: D0 D1 D2 D3 D4 D5 D6 D7 A0 A1 A2 A3
 fx2lafw - Saleae Logic with 8 channels: 0 1 2 3 4 5 6 7
 ```
+
+##Capture
+To capture the signal well, minimum to 4MHz (more better, 12? 16?). From now on, all captures to 16mhz
+
+![figure1-1](img/compare_mhz-syncro-request.png?raw=true)
+
 
 #Format SAMPLES
 In SAMPLES directory you can find differents samples do with sigrok, format:
