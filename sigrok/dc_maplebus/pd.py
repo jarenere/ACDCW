@@ -28,6 +28,8 @@ class Decoder(srd.Decoder):
         ('msg', 'Message'),
         ('eom', 'End Of Message'),
         ('idle', 'IDLE'),
+        ('packet', 'Packet'),
+        ('checksum', 'CheckSum'),
         ('warnings', 'Warnings'),
 
     )
@@ -35,7 +37,8 @@ class Decoder(srd.Decoder):
         ('bits', 'Bits sd0', (0,)),
         ('bits', 'Bits sd1', (1,)),
         ('fields', 'Fields', (2, 3, 4, 5)),
-        ('warnings', 'Warnings', (6,)),
+        ('packets', 'Packets', (6, 7)),
+        ('warnings', 'Warnings', (8,)),
     )
 
     def __init__(self, **kwargs):
@@ -46,11 +49,17 @@ class Decoder(srd.Decoder):
         self.n_flank_sync = None  # number flank down to sync
         self.ss = None
         self.es_message = None
+        self.ss_message = None
         self.ss_warning = None
         self.data0 = None
         self.data1 = None
         self.ss_field = None
+        self.stream_bits = ''
         self.bits = ''
+        # packet 4 bytes, MSB first.But the order of the four bytes is reversed
+        self.packet = []
+        self.byte = None
+        self.ss_packet = None
 
     def metadata(self, key, value):
         if key == srd.SRD_CONF_SAMPLERATE:
@@ -69,7 +78,10 @@ class Decoder(srd.Decoder):
 
     def putm(self, data):
         # use to put message
-        self.put(self.ss_message, self.es_message, self.out_ann, data)
+        self.put(self.ss_message, self.es_phase2, self.out_ann, data)
+
+    def put_packet(self, data):
+        self.put(self.ss_packet, self.es_phase2, self.out_ann, data)
 
     def putp(self, data):
         self.put(self.ss, self.es, self.out_python, data)
@@ -145,6 +157,46 @@ class Decoder(srd.Decoder):
     #     if sd1 == 1 and sd2 == 1:
     #         self.state = 'IDLE'
 
+
+
+    def is_byte(self):
+        if len(self.bits) == 8:
+            self.packet.insert(0, '{:02X}'.format(int(self.bits, 2)))
+            self.is_packet()
+            self.bits = ''
+            return True
+        return False
+
+
+    def is_packet(self):
+        if len(self.packet) == 4:
+            ''.join(self.packet)
+            self.put_packet([6, ['%s : %s' % ('Packet', ','.join(self.packet)),
+                            '%s : %s' % ('pck', ','.join(self.packet)),
+                             ''.join(self.packet)]])
+            self.packet = []
+            self.ss_packet = self.samplenum
+            return True
+        return False
+
+    def put_checksum(self):
+        def calculate_xor(bits):
+            l = (math.ceil(len(bits)/8)) * 2
+            s2 = '%%0%iX' % l
+            hexadecimals = s2 % int(bits, 2)
+            xor = 0
+            for i in range(int((len(hexadecimals)-2)/2)):
+                xor = xor ^ int(hexadecimals[2*i:2*i+2], 16)
+            return xor == int(hexadecimals[-2:], 16)
+
+        # Put checksum and check
+        checksum = self.packet[0]
+        self.put_packet([7, ['%s : %s' % ('CheckSum', checksum),
+                             '%s : %s' % ('CKS', checksum),
+                             '%s' % (checksum)]])
+        if not calculate_xor(self.stream_bits[:-1]):
+            put_packet([8, ['Bad CRC']])
+
     def is_start_sync(self, sd0, sd1):
         if sd0 == 0 and sd1 == 1:
             # reset count sync flank
@@ -170,6 +222,7 @@ class Decoder(srd.Decoder):
         # when  sd0 = low -> sd1 == data
         if sd0 == 0:
             self.data0 = sd1
+            self.stream_bits = self.stream_bits + str(sd1)
             self.bits = self.bits + str(sd1)
             return True
         return False
@@ -193,6 +246,7 @@ class Decoder(srd.Decoder):
         # when  sd1 = low -> sd0 == data
         if sd1 == 0:
             self.data1 = sd0
+            self.stream_bits = self.stream_bits + str(sd0)
             self.bits = self.bits + str(sd0)
             return True
         return False
@@ -203,7 +257,8 @@ class Decoder(srd.Decoder):
             self.putb([0, [str(self.data1)]])
             self.ss_bit = self.samplenum
             self.ss_field = self.samplenum  # can star eom
-            self.es_message = self.samplenum  # can finish message
+            self.es_phase2 = self.samplenum  # can finish message
+            self.is_byte()
             return True
         else:
             self.state = 'PHASE2'
@@ -217,7 +272,7 @@ class Decoder(srd.Decoder):
             if sd0 == 1 and sd0 == 1:
                 self.state = 'IDLE'
                 # Delete all load bit because is part of eom
-                bits = self.bits[:-1]
+                bits = self.stream_bits[:-1]
                 print(len(bits))
                 print(bits)
                 print((math.ceil(len(bits)/8)) * 2)
@@ -229,7 +284,10 @@ class Decoder(srd.Decoder):
                                s1 % ('M', int(bits, 2)),
                                s2 % int(bits, 2)]])
                 self.putx([4, ['End of message', 'EOM', 'E']])
+                self.put_checksum()
+                self.stream_bits = ''
                 self.bits = ''
+                self.packet = []
                 return True
 
     def decode(self, ss, es, data):
@@ -251,7 +309,7 @@ class Decoder(srd.Decoder):
                 if self.is_finish_sync(sd0, sd1):
                     self.putx([2, ['Sync', 'S']])
                     self.ss_bit = self.ss_field = self.ss_message \
-                                = self.samplenum
+                                = self.ss_packet = self.samplenum
 
             elif self.state == 'START_PHASE1':
                 if self.is_get_data0(sd0, sd1):
